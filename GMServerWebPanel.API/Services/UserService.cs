@@ -1,7 +1,6 @@
 ﻿using GMServerWebPanel.API.Data;
 using GMServerWebPanel.API.Models;
 using GMServerWebPanel.API.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace GMServerWebPanel.API.Services
 {
@@ -26,21 +25,21 @@ namespace GMServerWebPanel.API.Services
                 return null;
         }
 
-        public async Task<bool> CreateUserAsync(User user)
+        public bool CreateUser(string login, string password)
         {
-            user.Password = _passwordHasher.HashPassword(user.Password);
+            if (GetUserBy(login, password) == null)
+                return false;
+
+            var user = new User
+            {
+                Login = login,
+                Password = _passwordHasher.HashPassword(password)
+            };
 
             _context.Users.Add(user);
+            _context.SaveChanges();
 
-            try
-            {
-                await _context.SaveChangesAsync();
-                return true;
-            }
-            catch (DbUpdateException)
-            {
-                return false;
-            }
+            return true;
         }
     }
 }

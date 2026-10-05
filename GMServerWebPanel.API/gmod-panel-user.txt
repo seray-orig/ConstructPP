@@ -1,3 +1,0 @@
-Admin User
-Login: 51515eb6-d3ff-4d62-93d9-afb9e8026411
-Password: 1dc05293-65dc-48fd-9ed3-510dfc870c7c

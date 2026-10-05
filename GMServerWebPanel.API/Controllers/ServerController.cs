@@ -1,5 +1,4 @@
-﻿using GMServerWebPanel.API.Models;
-using GMServerWebPanel.API.Shared;
+﻿using GMServerWebPanel.API.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

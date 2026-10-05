@@ -13,9 +13,6 @@ namespace GMServerWebPanel.API.ServerProcessController.Core
             SingleWriter = false
         });
 
-        // Использую пакет Porta.Pty для создания иллюзии терминала.
-        // Обычный перехват ввода / вывода у Process не поддерживается у сервера gmod.
-        private IPtyConnection? _terminal;
         private readonly SemaphoreSlim _processLock = new(1, 1);
         private CancellationTokenSource? _readCts;
 
@@ -37,19 +34,6 @@ namespace GMServerWebPanel.API.ServerProcessController.Core
                     await _logChannel.Writer.WriteAsync($"[Ошибка]: Файл не найден: {serverPath}");
                     return;
                 }
-
-                var argsArray = new[]
-                {
-                    "-console",
-                    "-game", "garrysmod",
-                    "+gamemode", "terrortown",
-                    "+host_workshop_collection", "2792454072",
-                    "+map", "ttt_rooftops_2016_v1",
-                    "+maxplayers", "50",
-                    "-port", "27015",
-                    "-steamport", "26900",
-                    "+clientport", "27005"
-                };
 
                 var options = new PtyOptions
                 {

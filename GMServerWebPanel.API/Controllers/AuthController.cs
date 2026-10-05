@@ -25,6 +25,7 @@ namespace GMServerWebPanel.API.Controllers
             return Ok(new { token });
         }
 
+        //TODO: оно вообще надо?
         [HttpGet("verify")]
         [Authorize]
         public IActionResult Verify() => Ok();

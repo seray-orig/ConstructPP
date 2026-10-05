@@ -2,13 +2,13 @@
 
 namespace GMServerWebPanel.API.Models
 {
-    public class LoginRequest
+    public readonly struct LoginRequest
     {
         [Required]
         public required string Login
         {
             get;
-            set
+            init
             {
                 if (!string.IsNullOrEmpty(value) && value.Length <= 36)
                     field = value;
@@ -19,13 +19,13 @@ namespace GMServerWebPanel.API.Models
         public required string Password
         {
             get;
-            set
+            init
             {
                 if (!string.IsNullOrEmpty(value) && value.Length <= 64)
                     field = value;
             }
         }
 
-        public bool RememberMe { get; set; }
+        public bool RememberMe { get; init; }
     }
 }
