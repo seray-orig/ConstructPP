@@ -18,7 +18,7 @@ jobs:
         dotnet-version: 10.0.x
 
     - name: Виновник торжества
-      run: dotnet test GMServerWebPanel.API.UnitTests
+      run: dotnet test ConstructPP.API.UnitTests
 
   asp-api_integration-tests:
     runs-on: ubuntu-latest
@@ -34,4 +34,4 @@ jobs:
         dotnet-version: 10.0.x
 
     - name: Виновник торжества
-      run: dotnet test GMServerWebPanel.API.IntegrationTests
+      run: dotnet test ConstructPP.API.IntegrationTests

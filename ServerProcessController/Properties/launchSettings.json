@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "GMServerWebPanel.API.ServerProcessController": {
+    "ConstructPP.API.ServerProcessController": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

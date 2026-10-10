@@ -1,7 +1,7 @@
-﻿using GMServerWebPanel.API.Shared;
+﻿using ConstructPP.API.Shared;
 using Porta.Pty;
 
-namespace GMServerWebPanel.API.ServerProcessController.Core
+namespace ConstructPP.API.ServerProcessController.Core
 {
     internal class ServerProcess
     {

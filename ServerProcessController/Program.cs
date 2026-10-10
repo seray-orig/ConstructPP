@@ -1,4 +1,4 @@
-﻿using GMServerWebPanel.API.ServerProcessController.Core;
+﻿using ConstructPP.API.ServerProcessController.Core;
 using ProtoBuf.Grpc.Server;
 
 var builder = WebApplication.CreateBuilder();
