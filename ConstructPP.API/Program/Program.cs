@@ -3,9 +3,7 @@ using ConstructPP.API.Program;
 using ConstructPP.API.Services;
 using ConstructPP.API.Services.Interfaces;
 using ConstructPP.API.Settings;
-using ConstructPP.API.Shared;
 using Microsoft.EntityFrameworkCore;
-using ProtoBuf.Grpc.ClientFactory;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -24,20 +22,18 @@ builder.Services.AddScoped<ITokenServise, JwtService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPasswordHasher, Argon2Hasher>();
 builder.Services.AddSignalR();
-builder.Services.AddHostedService<LogStreamerService>();
-
-builder.Services.AddCodeFirstGrpcClient<IServerProcessController>(options =>
-{
-    options.Address = new Uri(config["ServerUrls"] ?? "http://localhost:50051");
-});
 
 var app = builder.Build();
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
 app.MapHub<LogHub>("/hub/logs");
+app.MapFallbackToFile("index.html");
 
 CreateFirstAdminUserDB.Create(app);
 
