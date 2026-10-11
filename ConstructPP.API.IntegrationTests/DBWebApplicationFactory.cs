@@ -11,8 +11,9 @@ public class DBWebApplicationFactory : WebApplicationFactory<Program>
 
     public DBWebApplicationFactory()
     {
+        SQLitePCL.Batteries_V2.Init();
         _connection = new SqliteConnection("DataSource=:memory:");
-        _connection.Open(); // 🔥 держим БД живой
+        _connection.Open();
     }
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -27,14 +28,14 @@ public class DBWebApplicationFactory : WebApplicationFactory<Program>
 
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseSqlite(_connection); // 🔥 используем одно соединение
+                options.UseSqlite(_connection);
             });
 
             var sp = services.BuildServiceProvider();
             using var scope = sp.CreateScope();
             var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-            db.Database.EnsureCreated(); // теперь работает правильно
+            db.Database.EnsureCreated();
         });
     }
 

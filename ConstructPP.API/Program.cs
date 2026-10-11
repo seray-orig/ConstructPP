@@ -25,15 +25,13 @@ builder.Services.AddSignalR();
 
 var app = builder.Build();
 
-app.UseDefaultFiles();
-app.UseStaticFiles();
+app.UseWebStaticFiles();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
 app.MapHub<LogHub>("/hub/logs");
-app.MapFallbackToFile("index.html");
 
 CreateFirstAdminUserDB.Create(app);
 

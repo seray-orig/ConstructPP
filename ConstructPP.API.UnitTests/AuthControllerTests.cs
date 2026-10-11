@@ -52,6 +52,11 @@ namespace ConstructPP.API.UnitTests
             return _users.FirstOrDefault(u =>
                 u.Login == login && u.Password == password);
         }
+
+        public bool CreateUser(string login, string password)
+        {
+            return true;
+        }
     }
 
     public class AuthControllerTests
