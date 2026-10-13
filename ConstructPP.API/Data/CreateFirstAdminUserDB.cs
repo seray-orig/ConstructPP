@@ -8,13 +8,14 @@ namespace ConstructPP.API.Data
         {
             using (var scope = services.CreateScope())
             {
-                var db = services.GetRequiredService<AppDbContext>();
+                var scopeProvider = scope.ServiceProvider;
+                var db = scopeProvider.GetRequiredService<AppDbContext>();
 
                 db.Database.EnsureCreated();
 
                 if (!db.Users.Any())
                 {
-                    var userService = services.GetRequiredService<IUserService>();
+                    var userService = scopeProvider.GetRequiredService<IUserService>();
 
                     var login = Guid.NewGuid().ToString();
                     var password = Guid.NewGuid().ToString();
@@ -31,9 +32,16 @@ namespace ConstructPP.API.Data
             var text = $"Admin User\nLogin: {login}\nPassword: {password}";
 
             if (OperatingSystem.IsWindows())
+            {
                 Console.WriteLine(text);
-            else
-                File.WriteAllText("~/Construct++User.txt", text);
+                return;
+            }
+
+            var filePath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+                "Construct++User.txt");
+
+            File.WriteAllText(filePath, text);
         }
     }
 }
