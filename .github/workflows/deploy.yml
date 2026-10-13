@@ -47,7 +47,7 @@ jobs:
       uses: actions/checkout@v6
 
     - name: Установка Node
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v7
       with:
         node-version: '24.x'
         cache: npm
@@ -101,6 +101,11 @@ jobs:
       contents: write
 
     steps:
+    - name: Клонируем репозиторий
+      uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
+
     - name: Забираем артефакты
       uses: actions/download-artifact@v4
       with:
