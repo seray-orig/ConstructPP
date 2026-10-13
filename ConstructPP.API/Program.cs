@@ -1,5 +1,5 @@
 using ConstructPP.API.Data;
-using ConstructPP.API.Program;
+using ConstructPP.API.Extensions;
 using ConstructPP.API.Services;
 using ConstructPP.API.Services.Interfaces;
 using ConstructPP.API.Settings;
@@ -8,9 +8,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 
-TokenJWTShit.GenerateRandomJWTKeyIfConfigIsEmpty(config);
-
-TokenJWTShit.SetTokenParameters(builder, config);
+builder.Services.AddJwtAuthentication(config);
 
 builder.Services.AddControllers();
 
@@ -33,6 +31,6 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapHub<LogHub>("/hub/logs");
 
-CreateFirstAdminUserDB.Create(app);
+app.Services.CreateFirstAdminUser();
 
 app.Run();

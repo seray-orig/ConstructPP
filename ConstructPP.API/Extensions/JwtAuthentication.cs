@@ -2,11 +2,18 @@
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace ConstructPP.API.Program
+namespace ConstructPP.API.Extensions
 {
-    public static class TokenJWTShit
+    public static class JwtAuthentication
     {
-        public static void GenerateRandomJWTKeyIfConfigIsEmpty(ConfigurationManager config)
+        public static void AddJwtAuthentication(this IServiceCollection services, IConfiguration config)
+        {
+            GenerateRandomJWTKeyIfConfigIsEmpty(config);
+
+            SetTokenParameters(services, config);
+        }
+
+        private static void GenerateRandomJWTKeyIfConfigIsEmpty(IConfiguration config)
         {
             if (string.IsNullOrEmpty(config["JWTSettings:Key"]))
             {
@@ -15,9 +22,9 @@ namespace ConstructPP.API.Program
             }
         }
 
-        public static void SetTokenParameters(WebApplicationBuilder builder, ConfigurationManager config)
+        private static void SetTokenParameters(IServiceCollection services, IConfiguration config)
         {
-            builder.Services.AddAuthentication(options =>
+            services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -51,7 +58,7 @@ namespace ConstructPP.API.Program
                 };
             });
 
-            builder.Services.AddAuthorization();
+            services.AddAuthorization();
         }
     }
 }

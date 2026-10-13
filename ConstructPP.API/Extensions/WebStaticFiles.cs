@@ -1,6 +1,6 @@
 using Microsoft.Extensions.FileProviders;
 
-namespace ConstructPP.API.Program
+namespace ConstructPP.API.Extensions
 {
     public static class WebStaticFiles
     {

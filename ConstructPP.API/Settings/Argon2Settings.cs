@@ -6,7 +6,7 @@
         {
             get => field;
             // Ограничение Argon2 на минимум памяти >= 4.
-            set => field = value > 3 ? value : 64 * 1024;
+            set => field = value >= 4 ? value : 64 * 1024;
         }
         public int Iterations
         {
